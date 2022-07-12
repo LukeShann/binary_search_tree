@@ -124,7 +124,12 @@ class Tree
     arr
   end
 
-  def postorder(que, arr, &block)
+  def postorder(node = @root, arr = [], &block)
+    arr = postorder(node.left, arr, &block) if node.left
+    arr = postorder(node.right, arr, &block) if node.right
+    yield node if block_given?
+    arr.push(node.data)
+    arr
   end
 
   def pretty_print(node = @root, prefix = '', is_left = true)
