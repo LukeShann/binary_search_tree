@@ -132,6 +132,19 @@ class Tree
     arr
   end
 
+  def depth(value, node = @root, d = 0)
+    case value <=> node.data
+    when -1
+      return 'No node found' if node.left.nil?
+      depth(value, node.left, d + 1)
+    when 0
+      return d
+    when 1
+      return 'No node found' if node.right.nil?
+      depth(value, node.right, d + 1)
+    end
+  end
+
   def pretty_print(node = @root, prefix = '', is_left = true)
     pretty_print(node.right, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right
     puts "#{prefix}#{is_left ? '└── ' : '┌── '}#{node.data}"
