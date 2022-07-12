@@ -84,6 +84,19 @@ class Tree
 
   def level_order(que = [@root], arr = [], &block)
     return arr if que.empty?
+    que.push(que.first.left) if que.first.left
+    que.push(que.first.right) if que.first.right
+    if block_given?
+      yield(que.shift)
+      level_order(que, &block)
+    else
+      arr.push(que.shift.data)
+      level_order(que, arr)
+    end
+  end
+
+  def level_order(que = [@root], arr = [], &block)
+    return arr if que.empty?
     que.push(que[0].left) if que[0].left
     que.push(que[0].right) if que[0].right
     if block_given?
@@ -94,6 +107,7 @@ class Tree
       level_order(que, arr)
     end
   end
+
 
   def pretty_print(node = @root, prefix = '', is_left = true)
     pretty_print(node.right, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right
