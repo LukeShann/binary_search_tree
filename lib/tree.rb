@@ -15,4 +15,30 @@ class Tree
     right =  arr[mid + 1..-1]
     Node.new(arr[mid], build_tree(left), build_tree(right))
   end
+
+  def insert(value, node = @root)
+    case value <=> node.data
+    when -1
+      if node.left_node.nil?
+        node.left_node = Node.new(value)
+        return
+      else
+        insert(value, node.left_node)
+      end
+    when 0
+      puts 'ERROR: Duplicate value'
+      return
+    when 1
+      if node.right_node.nil?
+        node.right_node = Node.new(value)
+        return
+      else
+        insert(value, node.right_node)
+      end
+    end
+  end
+
+  def delete(value)
+  end
+
 end
