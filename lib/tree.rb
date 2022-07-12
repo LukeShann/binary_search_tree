@@ -19,32 +19,53 @@ class Tree
   def insert(value, node = @root)
     case value <=> node.data
     when -1
-      if node.left_node.nil?
-        node.left_node = Node.new(value)
+      if node.left.nil?
+        node.left = Node.new(value)
         return
       else
-        insert(value, node.left_node)
+        insert(value, node.left)
       end
     when 0
       puts 'ERROR: Duplicate value'
       return
     when 1
-      if node.right_node.nil?
-        node.right_node = Node.new(value)
+      if node.right.nil?
+        node.right = Node.new(value)
         return
       else
-        insert(value, node.right_node)
+        insert(value, node.right)
       end
     end
   end
 
+  def find(value, node = @root)
+    case value <=> node.data
+    when -1
+      return 'No node found' if node.left.nil?
+      find(value, node.left)
+    when 0
+      return node
+    when 1
+      return 'No node found' if node.right.nil?
+      find(value, node.left)
+    end
+  end
+
   def delete(value, node = @root)
+    # Deal with root case
+    # Find parent of node to be deleted
+    # If is a leaf
+      # Delete pointer to node
+    # If has one child
+      # Change parent's pointer to deleted node's child
+    # If has two children
+      # Fuck.
   end
 
   def pretty_print(node = @root, prefix = '', is_left = true)
-    pretty_print(node.right_node, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right_node
+    pretty_print(node.right, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right
     puts "#{prefix}#{is_left ? '└── ' : '┌── '}#{node.data}"
-    pretty_print(node.left_node, "#{prefix}#{is_left ? '    ' : '│   '}", true) if node.left_node
+    pretty_print(node.left, "#{prefix}#{is_left ? '    ' : '│   '}", true) if node.left
   end
 
 end

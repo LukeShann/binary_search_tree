@@ -7,3 +7,4 @@ tree.insert(5555)
 tree.insert(6666)
 tree.insert(67)
 tree.pretty_print
+p tree.find(8)
