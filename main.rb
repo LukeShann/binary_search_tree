@@ -6,4 +6,4 @@ tree.insert(9999)
 tree.insert(5555)
 tree.insert(6666)
 tree.insert(67)
-p tree.root.right_node
+tree.pretty_print
