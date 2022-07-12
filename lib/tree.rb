@@ -108,6 +108,19 @@ class Tree
     end
   end
 
+  def preorder(node = @root, arr = [], &block)
+    yield node if block_given?
+    arr.push(node.data)
+    arr = preorder(node.left, arr, &block) if node.left
+    arr = preorder(node.right, arr, &block) if node.right
+    arr
+  end
+
+  def inorder(que, arr, &block)
+  end
+
+  def postorder(que, arr, &block)
+  end
 
   def pretty_print(node = @root, prefix = '', is_left = true)
     pretty_print(node.right, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right
