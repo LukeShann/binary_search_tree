@@ -62,9 +62,9 @@ class Tree
     # Navigate tree
     case value <=> node.data
     when -1
-      node.left = delete(value, node.left)
+      node.left = delete_recursive(value, node.left)
     when 1
-      node.right = delete(value, node.right)
+      node.right = delete_recursive(value, node.right)
     when 0
       # When this is the node to be deleted
       # Check for 3 cases
@@ -75,7 +75,10 @@ class Tree
       elsif node.left.nil?
         return node.right
       else
-        # Find min value
+        # Find min value aka next ordered successor (leftmost of right branch)
+        node.data = find_min_value(node.right)
+        # Delete that value once it's copied
+        node.right = delete_recursive(node.data, node.right)
       end
     end
     return node

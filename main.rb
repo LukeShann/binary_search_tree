@@ -7,4 +7,9 @@ tree.insert(5555)
 tree.insert(6666)
 tree.insert(67)
 tree.pretty_print
-p tree.find_min_value(tree.find(67))
+tree.delete(5555)
+tree.pretty_print
+tree.delete(4)
+tree.pretty_print
+tree.delete(8)
+tree.pretty_print
