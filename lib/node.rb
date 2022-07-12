@@ -11,4 +11,8 @@ class Node
   def <=>(other)
     @data <=> other.data
   end
+
+  def to_s
+    "-(( NODE: #{@data} ))-"
+  end
 end

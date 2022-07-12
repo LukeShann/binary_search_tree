@@ -116,7 +116,12 @@ class Tree
     arr
   end
 
-  def inorder(que, arr, &block)
+  def inorder(node = @root, arr = [], &block)
+    arr = inorder(node.left, arr, &block) if node.left
+    yield node if block_given?
+    arr.push node.data
+    arr = inorder(node.right, arr, &block) if node.right
+    arr
   end
 
   def postorder(que, arr, &block)
