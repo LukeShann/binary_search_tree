@@ -145,6 +145,16 @@ class Tree
     tree_depth(que, que[1], deepest)
   end
 
+  def balanced?(node = @root)
+    return true if node.nil?
+    left_dep = node.left ? tree_depth([node.left, 0]) : 0
+    right_dep = node.right ? tree_depth([node.right, 0]) : 0
+    if (left_dep - right_dep).abs <= 1
+      return balanced?(node.left) & balanced?(node.right)
+    end
+    false
+  end
+
   def pretty_print(node = @root, prefix = '', is_left = true)
     pretty_print(node.right, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right
     puts "#{prefix}#{is_left ? '└── ' : '┌── '}#{node.data}"
