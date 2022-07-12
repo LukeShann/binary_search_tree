@@ -82,6 +82,15 @@ class Tree
     find_min_value(node.left)
   end
 
+  def level_order(que = [@root], &block)
+    return if que.empty?
+    que.push(que[0].left) if que[0].left
+    que.push(que[0].right) if que[0].right
+    yield(que.shift) if block_given?
+    level_order(que, &block)
+    # TODO: return level ordered elements if no block given
+  end
+
   def pretty_print(node = @root, prefix = '', is_left = true)
     pretty_print(node.right, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right
     puts "#{prefix}#{is_left ? '└── ' : '┌── '}#{node.data}"
