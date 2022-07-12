@@ -47,19 +47,43 @@ class Tree
       return node
     when 1
       return 'No node found' if node.right.nil?
-      find(value, node.left)
+      find(value, node.right)
     end
   end
 
-  def delete(value, node = @root)
-    # Deal with root case
-    # Find parent of node to be deleted
-    # If is a leaf
-      # Delete pointer to node
-    # If has one child
-      # Change parent's pointer to deleted node's child
-    # If has two children
-      # Fuck.
+  def delete(value)
+    @root = delete_recursive(value, @root)
+  end 
+
+  def delete_recursive(value, node)
+    # Handle empty tree
+    return node if node.nil?
+
+    # Navigate tree
+    case value <=> node.data
+    when -1
+      node.left = delete(value, node.left)
+    when 1
+      node.right = delete(value, node.right)
+    when 0
+      # When this is the node to be deleted
+      # Check for 3 cases
+      if node.right.nil? && node.left.nil?
+        return nil
+      elsif node.right.nil?
+        return node.left
+      elsif node.left.nil?
+        return node.right
+      else
+        # Find min value
+      end
+    end
+    return node
+  end
+
+  def find_min_value(node)
+    return node.data if node.left.nil?
+    find_min_value(node.left)
   end
 
   def pretty_print(node = @root, prefix = '', is_left = true)
