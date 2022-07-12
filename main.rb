@@ -11,3 +11,8 @@ tree.insert(102)
 tree.insert(103)
 tree.insert(104)
 
+tree.pretty_print
+p tree.balanced?
+tree.rebalance
+tree.pretty_print
+p tree.balanced?
