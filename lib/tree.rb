@@ -53,7 +53,7 @@ class Tree
 
   def delete(value)
     @root = delete_recursive(value, @root)
-  end 
+  end
 
   def delete_recursive(value, node = @root)
     return node if node.nil?
@@ -86,19 +86,6 @@ class Tree
     return arr if que.empty?
     que.push(que.first.left) if que.first.left
     que.push(que.first.right) if que.first.right
-    if block_given?
-      yield(que.shift)
-      level_order(que, &block)
-    else
-      arr.push(que.shift.data)
-      level_order(que, arr)
-    end
-  end
-
-  def level_order(que = [@root], arr = [], &block)
-    return arr if que.empty?
-    que.push(que[0].left) if que[0].left
-    que.push(que[0].right) if que[0].right
     if block_given?
       yield(que.shift)
       level_order(que, &block)
@@ -143,6 +130,19 @@ class Tree
       return 'No node found' if node.right.nil?
       depth(value, node.right, d + 1)
     end
+  end
+
+  def height(value)
+    tree_depth - depth(value)
+  end
+
+  def tree_depth(que = [@root, 0], depth = 0, deepest = 0)
+    return deepest if que.empty?
+    que.push(que.first.left, depth + 1) if que.first.left
+    que.push(que.first.right, depth + 1) if que.first.right
+    deepest = que[1] if que[1] > deepest
+    que.shift(2)
+    tree_depth(que, que[1], deepest)
   end
 
   def pretty_print(node = @root, prefix = '', is_left = true)
