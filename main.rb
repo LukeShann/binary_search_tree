@@ -6,4 +6,5 @@ tree.insert(9999)
 tree.insert(5555)
 tree.insert(6666)
 tree.pretty_print
-tree.level_order { |item| puts item.data }
+tree.level_order { |item| puts item }
+p tree.level_order
