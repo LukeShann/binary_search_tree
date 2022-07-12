@@ -1,5 +1,4 @@
 class Tree
-  attr_accessor :root
   def initialize(arr)
     @root = build_tree(arr.sort.uniq)
   end
@@ -70,16 +69,16 @@ class Tree
       elsif node.left.nil?
         return node.right
       else
-        node.data = find_min_value(node.right)
+        node.data = find_min_child(node.right)
         node.right = delete_recursive(node.data, node.right)
       end
     end
     return node
   end
 
-  def find_min_value(node)
+  def find_min_child(node)
     return node.data if node.left.nil?
-    find_min_value(node.left)
+    find_min_child(node.left)
   end
 
   def level_order(que = [@root], arr = [], &block)
